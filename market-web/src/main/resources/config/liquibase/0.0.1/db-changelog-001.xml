@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet author="mikoglace" id="0.0.1-001-1">
+        <createTable catalogName="marketdb" tableName="account">
+            <column autoIncrement="true" name="ACC_ID" type="BIGINT(20) UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="ACC_INTERNAL_REF" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACC_EXTERNAL_REF" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="ACC_CREATION_DATE" type="datetime(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="ACC_UPDATE_DATE" type="datetime(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACC_CLOSE_DATE" type="datetime(19)"/>
+            <column defaultValueNumeric="1" name="ACC_ACTIVE" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-2">
+        <createTable catalogName="marketdb" tableName="client">
+            <column autoIncrement="true" name="CLI_ID" type="BIGINT(20) UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="CLI_INTERNAL_REF" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CLI_FIRSTNAME" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CLI_LASTNAME" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="CLI_CREATION_DATE" type="datetime(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="CLI_UPDATE_DATE" type="datetime(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="CLI_ACTIVE" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-3">
+        <createTable catalogName="marketdb" tableName="client_account">
+            <column name="CLI_ID" type="BIGINT(20) UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACC_ID" type="BIGINT(20) UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="CLI_ACC_CREATION_DATE" type="datetime(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="CLI_ACC_UPDATE_DATE" type="datetime(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CLI_ACC_CLOSE_DATE" type="datetime(19)"/>
+            <column defaultValueNumeric="1" name="CLI_ACC_ACTIVE" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-4">
+        <createTable catalogName="marketdb" tableName="instrument">
+            <column name="INST_ID" type="BIGINT(20) UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INST_LABEL" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INST_ISIN" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INST_MNEMO_CODE" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INST_DESCRIPTION" type="VARCHAR(100)"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="INST_CREATION_DATE" type="datetime(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INST_ACTIVE_DATE" type="datetime(19)"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="INST_UPDATE_DATE" type="datetime(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INST_CLOSE_DATE" type="datetime(19)"/>
+            <column defaultValueNumeric="1" name="INST_ACTIVE" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-5">
+        <createTable catalogName="marketdb" tableName="portfolio">
+            <column autoIncrement="true" name="POR_ID" type="BIGINT(20) UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-6">
+        <createTable catalogName="marketdb" tableName="portfolio_line">
+            <column autoIncrement="true" name="POR_LINE_ID" type="BIGINT(20) UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="POR_ID" type="BIGINT(20) UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INST_ID" type="BIGINT(20) UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POR_LINE_QUANTITY" type="DECIMAL(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POR_LINE_UNIT_PRICE" type="DECIMAL(10, 5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="POR_LINE_CREATION_DATE" type="datetime(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POR_LINE_CLOSE_DATE" type="datetime(19)"/>
+            <column defaultValueNumeric="1" name="POR_LINE_ACTIVE" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-7">
+        <createTable catalogName="marketdb" tableName="securities_account">
+            <column name="ACC_ID" type="BIGINT(20) UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POR_ID" type="BIGINT(20) UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-8">
+        <addPrimaryKey catalogName="marketdb" columnNames="CLI_ID, ACC_ID" constraintName="PRIMARY" tableName="client_account"/>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-9">
+        <addPrimaryKey catalogName="marketdb" columnNames="INST_ID" constraintName="PRIMARY" tableName="instrument"/>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-10">
+        <addPrimaryKey catalogName="marketdb" columnNames="ACC_ID" constraintName="PRIMARY" tableName="securities_account"/>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-11">
+        <addForeignKeyConstraint baseColumnNames="ACC_ID" baseTableCatalogName="marketdb" baseTableName="client_account" constraintName="FK_CLI_ACC_ACC_ID" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ACC_ID" referencedTableCatalogName="marketdb" referencedTableName="account"/>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-12">
+        <addForeignKeyConstraint baseColumnNames="CLI_ID" baseTableCatalogName="marketdb" baseTableName="client_account" constraintName="FK_CLI_ACC_CLI_ID" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="CLI_ID" referencedTableCatalogName="marketdb" referencedTableName="client"/>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-13">
+        <addForeignKeyConstraint baseColumnNames="INST_ID" baseTableCatalogName="marketdb" baseTableName="portfolio_line" constraintName="FK_POR_LINE_INST_ID" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="INST_ID" referencedTableCatalogName="marketdb" referencedTableName="instrument"/>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-14">
+        <addForeignKeyConstraint baseColumnNames="POR_ID" baseTableCatalogName="marketdb" baseTableName="portfolio_line" constraintName="FK_POR_LINE_POR_ID" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="POR_ID" referencedTableCatalogName="marketdb" referencedTableName="portfolio"/>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-15">
+        <addForeignKeyConstraint baseColumnNames="ACC_ID" baseTableCatalogName="marketdb" baseTableName="securities_account" constraintName="FK_SEC_ACC_ID" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ACC_ID" referencedTableCatalogName="marketdb" referencedTableName="account"/>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-16">
+        <addForeignKeyConstraint baseColumnNames="POR_ID" baseTableCatalogName="marketdb" baseTableName="securities_account" constraintName="FK_SEC_POR_ID" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="POR_ID" referencedTableCatalogName="marketdb" referencedTableName="portfolio"/>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-17">
+        <addUniqueConstraint catalogName="marketdb" columnNames="ACC_ID" constraintName="ACC_ID_UNIQUE" deferrable="false" disabled="false" initiallyDeferred="false" tableName="account"/>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-18">
+        <addUniqueConstraint catalogName="marketdb" columnNames="ACC_INTERNAL_REF" constraintName="ACC_INTERNAL_REF_UNIQUE" deferrable="false" disabled="false" initiallyDeferred="false" tableName="account"/>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-19">
+        <addUniqueConstraint catalogName="marketdb" columnNames="CLI_ID" constraintName="CLI_ID_UNIQUE" deferrable="false" disabled="false" initiallyDeferred="false" tableName="client"/>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-20">
+        <addUniqueConstraint catalogName="marketdb" columnNames="CLI_INTERNAL_REF" constraintName="CLI_INTERNAL_REF_UNIQUE" deferrable="false" disabled="false" initiallyDeferred="false" tableName="client"/>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-21">
+        <addUniqueConstraint catalogName="marketdb" columnNames="INST_ISIN" constraintName="INST_ISIN_UNIQUE" deferrable="false" disabled="false" initiallyDeferred="false" tableName="instrument"/>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-22">
+        <addUniqueConstraint catalogName="marketdb" columnNames="INST_MNEMO_CODE" constraintName="INST_MNEMO_CODE_UNIQUE" deferrable="false" disabled="false" initiallyDeferred="false" tableName="instrument"/>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-23">
+        <addUniqueConstraint catalogName="marketdb" columnNames="POR_ID" constraintName="POR_ID_UNIQUE" deferrable="false" disabled="false" initiallyDeferred="false" tableName="portfolio"/>
+    </changeSet>
+    <changeSet author="mikoglace" id="0.0.1-001-24">
+        <addUniqueConstraint catalogName="marketdb" columnNames="POR_LINE_ID" constraintName="POR_LINE_ID_UNIQUE" deferrable="false" disabled="false" initiallyDeferred="false" tableName="portfolio_line"/>
+    </changeSet>
+</databaseChangeLog>
