@@ -1,20 +1,16 @@
-server:
-    port: 8080
-    address: localhost
-
 spring:
     profiles: dev
     datasource:
-        dataSourceClassName: org.h2.jdbcx.JdbcDataSource
-        url: jdbc:h2:mem:market
+        dataSourceClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/marketdb2
         databaseName: 
         serverName: 
-        username: 
-        password:
+        username: root
+        password: toor
 
     jpa:
-        database-platform: org.hibernate.dialect.H2Dialect
-        database: H2
+        database-platform: org.hibernate.dialect.MySQLInnoDBDialect
+        database: MYSQL
         openInView: false
         show_sql: true
         generate-ddl: false
@@ -22,7 +18,7 @@ spring:
             ddl-auto: none
             naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
         properties:
-            hibernate.cache.use_second_level_cache: true
+            hibernate.cache.use_second_level_cache: false
             hibernate.cache.use_query_cache: false
-            hibernate.generate_statistics: true
+            hibernate.generate_statistics: false
             hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory

@@ -1,12 +1,10 @@
 package com.mikoglace.market;
 
-import java.util.Arrays;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.SimpleCommandLinePropertySource;
 
 @Configuration
 @EnableAutoConfiguration
@@ -14,11 +12,22 @@ import org.springframework.context.annotation.Configuration;
 public class Application {
 
     public static void main(String[] args) {
-        ApplicationContext ctx = SpringApplication.run(Application.class, args);
+    	SpringApplication sApp = new SpringApplication(Application.class);
 
-        String[] beanNames = ctx.getBeanDefinitionNames();
-        Arrays.sort(beanNames);
+        SimpleCommandLinePropertySource source = new SimpleCommandLinePropertySource(args);
 
+        // Check if the selected profile has been set as argument.
+        // if not the development profile will be added
+        addDefaultProfile(sApp, source);
+        
+        sApp.run(args);
     }
+
+	private static void addDefaultProfile(SpringApplication sApp,
+			SimpleCommandLinePropertySource source) {
+		if (!source.containsProperty("spring.profiles.active")) {
+            sApp.setAdditionalProfiles("dev");
+        }
+	}
 
 }
