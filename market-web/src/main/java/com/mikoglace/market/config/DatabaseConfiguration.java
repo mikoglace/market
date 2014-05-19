@@ -6,7 +6,6 @@ import liquibase.integration.spring.SpringLiquibase;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
@@ -27,9 +26,6 @@ public class DatabaseConfiguration implements EnvironmentAware {
 
 	Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
-	private Environment env;
-	
 	private PropertyResolver propertyResolver;
 	
 	/**
@@ -47,7 +43,7 @@ public class DatabaseConfiguration implements EnvironmentAware {
 		
 		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
 		
-		String driverClassName = propertyResolver.getProperty("dataSourceClassName");
+		String driverClassName = propertyResolver.getProperty("driverClassName");
 		String url = propertyResolver.getProperty("url");
 		String username = propertyResolver.getProperty("username");
 		String password = propertyResolver.getProperty("password");
