@@ -7,56 +7,61 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mikoglace.market.dto.InstrumentDTO;
 import com.mikoglace.market.model.Instrument;
+import com.mikoglace.market.service.IService;
 
 /**
- * REST controller for managing Portfolio.
+ * REST controller for managing Instrument.
  */
 @RestController
 @RequestMapping("/rest/instruments")
-public class InstrumentResource extends AbstractResource<Instrument, JpaRepository<Instrument,Long>> {
+public class InstrumentResource extends AbstractResource<Long, Instrument, InstrumentDTO, IService<Long,Instrument,InstrumentDTO>> {
 
 	private final Logger log = LoggerFactory.getLogger(InstrumentResource.class);
 
-	@Resource(name="instrumentRepository")
-	public void setRepository(JpaRepository<Instrument, Long> repository) {
-		super.setRepository(repository);
+	@Resource(name = "instrumentService")
+	@Override
+	public void setService(IService<Long, Instrument, InstrumentDTO> service) {
+		super.setService(service);
+	}
+	
+	
+
+	/**
+	 * POST /rest/instruments -> Create a new instrument.
+	 * @throws Exception 
+	 */
+	public void create(@RequestBody InstrumentDTO object) throws Exception {
+		super.create(object);
 	}
 
 	/**
-	 * POST /rest/instruments -> Create a new Instrument.
+	 * GET /rest/instruments -> get all the instruments.
+	 * @throws Exception 
 	 */
-	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
-	public void create(@RequestBody Instrument object) {
-		repository.save(object);
+	public List<InstrumentDTO> getAll() throws Exception {
+		return super.getAll();
 	}
 
 	/**
-	 * GET /rest/instruments -> get all the portfolios.
+	 * GET /rest/instruments/:id -> get the "id" instrument.
 	 */
-	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
-	public List<Instrument> getAll() {
-		return repository.findAll();
-	}
-
-	/**
-	 * GET /rest/instruments/:id -> get the "id" portfolio.
-	 */
-	public Instrument get(@PathVariable Long id, HttpServletResponse response) {
+	public InstrumentDTO get(@PathVariable Long id, HttpServletResponse response) {
 		return super.get(id, response);
 	}
 
 	/**
-	 * DELETE /rest/instruments/:id -> delete the "id" portfolio.
+	 * DELETE /rest/instruments/:id -> delete the "id" instrument.
 	 */
 	public void delete(@PathVariable Long id, HttpServletResponse response) {
-		repository.delete(id);
+		super.delete(id, response);
 	}
+	
+
 }
